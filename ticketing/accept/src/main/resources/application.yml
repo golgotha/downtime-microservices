@@ -1,0 +1,18 @@
+server:
+  http2:
+    enabled: true
+  port: 8080
+  servlet:
+    context-path: /accept
+
+management:
+  server.port: 9001
+spring:
+  datasource:
+    url: jdbc:mysql://database:3306/mediastream?useUnicode=true&amp;characterEncoding=UTF-8
+    username: root
+    password: mediastream
+    driverClassName: com.mysql.jdbc.Driver
+
+  liquibase:
+    change-log: classpath:/liquibase/master.xml

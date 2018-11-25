@@ -1,0 +1,19 @@
+server:
+  http2:
+    enabled: true
+  port: 8080
+  servlet:
+    context-path: /scheduler
+
+spring:
+  application:
+    name: event-scheduler-service
+
+  datasource:
+    url: jdbc:mysql://database:3306/mediastream?useUnicode=true&amp;characterEncoding=UTF-8
+    username: root
+    password: mediastream
+    driverClassName: com.mysql.jdbc.Driver
+
+  liquibase:
+    change-log: classpath:/liquibase/master.xml

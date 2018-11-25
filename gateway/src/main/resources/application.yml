@@ -1,0 +1,47 @@
+spring:
+  application.name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: accept
+        uri: http://accept:8080
+        predicates:
+        - Path=/accept/**
+
+      - id: payout
+        uri: http://payout:8080
+        predicates:
+        - Path=/payout/**
+
+      - id: scheduler
+        uri: http://scheduler:8080
+        predicates:
+          - Path=/scheduler/**
+
+      - id: static
+        uri: http://static:8080
+        predicates:
+        - Host=localhost.static
+        - Path=/accept/**
+
+#        filters:
+#        - RewritePath=/accept/(?<path>.*), /$\{path}
+#      - id: department-service
+#        uri: lb://department-service
+#        predicates:
+#        - Path=/department/**
+#        filters:
+#        - RewritePath=/department/(?<path>.*), /$\{path}
+#      - id: organization-service
+#        uri: lb://organization-service
+#        predicates:
+#        - Path=/organization/**
+#        filters:
+#        - RewritePath=/organization/(?<path>.*), /$\{path}
+
+server:
+  port: 9000
+

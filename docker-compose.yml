@@ -1,0 +1,60 @@
+version: '3.0'
+
+services:
+  gateway:
+    image: gateway:1.0
+    container_name: gateway
+    ports:
+      - "9000:9000"
+
+  accept:
+    image: accept-ticket:1.0
+    container_name: accept-ticket
+    ports:
+      - "8080"
+      - "5005:5005"
+    links:
+    - database
+    depends_on:
+      - database
+      - scheduler
+
+  static:
+    image: accept-ticket-static:1.0
+    container_name: accept-ticket-static
+    ports:
+    - "8080"
+    depends_on:
+    - scheduler
+
+  payout:
+    image: payout-ticket:1.0
+    container_name: payout-ticket
+    ports:
+      - "8080"
+#      - "5005:5005"
+
+  scheduler:
+    image: scheduler-service:1.0
+    container_name: scheduler-service
+    ports:
+      - "8080"
+    links:
+      - database
+    depends_on:
+      - database
+
+  database:
+    image: mysql:5.7
+    container_name: database
+    restart: always
+    environment:
+      - MYSQL_DATABASE=mediastream
+      - MYSQL_ROOT_PASSWORD=mediastream
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=mediastream
+    volumes:
+      - ~/docker/downtime/mysql-data/main_db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+#kafka:
