@@ -14,9 +14,7 @@
 
     <modules>
         <module>accept</module>
-        <module>accept-static</module>
         <module>payout</module>
-        <module>accept-static</module>
         <module>static</module>
     </modules>
 

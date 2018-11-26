@@ -12,7 +12,7 @@ services:
     container_name: accept-ticket
     ports:
       - "8080"
-      - "5005:5005"
+#      - "5005:5005"
     links:
     - database
     depends_on:
