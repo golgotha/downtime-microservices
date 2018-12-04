@@ -18,10 +18,11 @@
     </properties>
 
     <modules>
-        <module>ticketing</module>
-        <module>kafka</module>
+        <module>eureka-server</module>
         <module>gateway</module>
         <module>scheduler</module>
+        <module>ticketing</module>
+        <module>kafka</module>
     </modules>
 
     <build>

@@ -7,13 +7,15 @@ spring:
           enabled: true
       routes:
       - id: accept
-        uri: http://accept:8080
+        uri: lb://accept-ticket-service:8080
+#        uri: http://accept:8080
         predicates:
         - Host=localhost
         - Path=/accept/**
 
       - id: payout
         uri: http://payout:8080
+#        uri: http://payout:8080
         predicates:
         - Path=/payout/**
 
@@ -23,10 +25,16 @@ spring:
           - Path=/scheduler/**
 
       - id: static
-        uri: http://static:8080
+#        uri: http://static:8080
+        uri: lb://accept-ticket-static-service:8080
         predicates:
         - Host=static
         - Path=/accept/**
+
+      - id: eureka
+        uri: http://localhost:8761/
+        predicates:
+        - Path=/eureka/**
 
 #        filters:
 #        - RewritePath=/accept/(?<path>.*), /$\{path}

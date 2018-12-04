@@ -1,0 +1,14 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+logging:
+  level.org.springframework.cloud: DEBUG
+#logging.level.com.netflix.eureka:OFF
+#logging:
+#  level: com.netflix.eureka
+#logging.level.com.netflix.discovery=OFF

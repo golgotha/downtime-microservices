@@ -1,3 +1,11 @@
 spring:
   application:
     name: accept-ticket-service
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
