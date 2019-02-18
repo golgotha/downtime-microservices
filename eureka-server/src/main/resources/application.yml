@@ -1,6 +1,10 @@
 server:
   port: 8761
 
+sppring:
+  sleuth:
+    enabled: false
+
 eureka:
   client:
     register-with-eureka: false

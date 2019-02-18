@@ -15,6 +15,7 @@ public class EventGenerator {
 
     public Event generate() {
         Event event = new Event();
+        event.setStatus(Event.Status.ANNOUNCEMENT);
         Date startTime = new Date(new Date().getTime() + EVENT_DURATION);
         Date finishTime = new Date(startTime.getTime() + EVENT_DURATION);
         event.setStartTime(startTime);

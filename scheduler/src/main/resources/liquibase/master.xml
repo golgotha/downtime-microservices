@@ -13,6 +13,7 @@
             </column>
             <column name="start_time" type="datetime"/>
             <column name="finish_time" type="datetime"/>
+            <column name="status" type="varchar(16)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

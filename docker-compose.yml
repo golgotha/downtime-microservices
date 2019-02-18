@@ -23,11 +23,13 @@ services:
     container_name: accept-ticket
     ports:
       - "8080"
-#      - "5005:5005"
-#    links:
+      - "5005:5005"
+    links:
+      - tickets_db
 #    - database
     depends_on:
       - eureka-server
+      - kafka
 #      - database
 #      - scheduler
 
@@ -49,16 +51,17 @@ services:
     depends_on:
       - eureka-server
 
-#  scheduler:
-#    image: scheduler-service:1.0
-#    container_name: scheduler-service
-#    ports:
-#      - "8080"
-#    links:
-#      - database
-#    depends_on:
-#      - discovery
-#      - database
+  scheduler:
+    image: scheduler-service:1.0
+    container_name: scheduler-service
+    restart: always
+    ports:
+      - "8080"
+    links:
+      - "events_db:events_db"
+    depends_on:
+      - eureka-server
+      - events_db
 
 #  database:
 #    image: mysql:5.7
@@ -73,4 +76,91 @@ services:
 #      - ~/docker/downtime/mysql-data/main_db:/var/lib/mysql
 #    ports:
 #      - "3306:3306"
+
+  zookeeper:
+#    image: confluentinc/cp-zookeeper
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+    ports:
+      - "2181:2181"
+#    networks:
+#      - kafka
+
+  kafka:
+#    image: confluentinc/cp-kafka
+    image: wurstmeister/kafka
+    container_name: kafka
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+#      - KAFKA_ADVERTISED_PORT=9092
+#      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+#      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+    ports:
+      - "9092"
+    depends_on:
+      - zookeeper
+
+  ui:
+    image: frontend-client:1.0
+    build:
+      context: frontend/.
+      dockerfile: frontend/Dockerfile
+    container_name: ui
+    command: "npm start"
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes: # For webpack dev server to use our local files
+      - ./frontend:/usr/src/app/
+    links:
+      - gateway:gateway
+
+  events_db:
+    image: mysql:5.7
+    container_name: events_db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=mediastream
+      - MYSQL_ROOT_PASSWORD=mediastream
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=mediastream
+    volumes:
+      - ~/docker/downtime/mysql-data/events_db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  tickets_db:
+    image: mongo:3.4.19-jessie
+    container_name: tickets_db
+    restart: always
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+#      - MONGODB_USER="user"
+#      - MONGODB_PASS="pass"
+    volumes:
+      - ~/docker/downtime/mongodb/data/db:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+#
+#  tickets_db:
+#    image: mysql:5.7
+#    container_name: tickets_db
+#    restart: always
+#    environment:
+#    - MYSQL_DATABASE=mediastream
+#    - MYSQL_ROOT_PASSWORD=mediastream
+#    - MYSQL_USER=root
+#    - MYSQL_PASSWORD=mediastream
+#    volumes:
+#    - ~/docker/downtime/mysql-data/tickets_db:/var/lib/mysql
+#    ports:
+#    - "3307:3306"
 #kafka:

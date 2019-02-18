@@ -7,6 +7,26 @@ server:
 
 management:
   server.port: 9001
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      properties.spring.json.add.type.headers: false
+    consumer:
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties.spring.json.trusted.packages: com.comncon.downtime.ticketing.accept.model
+      group-id: ticketing
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    bootstrap-servers: kafka:9092
+  data:
+    mongodb:
+      host: tickets_db
+      port: 27017
+      database: tickets
 #spring:
 #  datasource:
 #    url: jdbc:mysql://database:3306/mediastream?useUnicode=true&amp;characterEncoding=UTF-8

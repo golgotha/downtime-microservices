@@ -10,7 +10,7 @@ spring:
     name: event-scheduler-service
 
   datasource:
-    url: jdbc:mysql://database:3306/mediastream?useUnicode=true&amp;characterEncoding=UTF-8
+    url: jdbc:mysql://events_db:3306/mediastream?useUnicode=true&amp;characterEncoding=UTF-8
     username: root
     password: mediastream
     driverClassName: com.mysql.jdbc.Driver

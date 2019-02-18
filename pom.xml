@@ -20,9 +20,11 @@
     <modules>
         <module>eureka-server</module>
         <module>gateway</module>
+        <module>contracts</module>
         <module>scheduler</module>
         <module>ticketing</module>
         <module>kafka</module>
+        <module>frontend</module>
     </modules>
 
     <build>

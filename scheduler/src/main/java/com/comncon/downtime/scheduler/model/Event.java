@@ -1,13 +1,11 @@
 package com.comncon.downtime.scheduler.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -32,4 +30,15 @@ public class Event implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "finish_time")
     private Date finishTime;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
+
+    public enum Status {
+        ANNOUNCEMENT,
+        PROGRESS,
+        RESULT,
+        FINISHED
+    }
 }

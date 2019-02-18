@@ -1,13 +1,15 @@
 package com.comncon.downtime.scheduler.service;
 
+import com.comncon.downtime.contracts.EventDto;
 import com.comncon.downtime.scheduler.model.Event;
-import com.comncon.downtime.scheduler.model.EventDto;
+import com.comncon.downtime.scheduler.repository.EntityNotFoundException;
 import com.comncon.downtime.scheduler.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -23,12 +25,22 @@ public class EventService {
     @Transactional(readOnly = true)
     public List<EventDto> getEvents() {
         List<Event> events = eventRepository.findEvents();
-        return events.stream().map(e -> {
-            EventDto eventDto = new EventDto();
-            eventDto.setEventId(e.getId());
-            eventDto.setStartTime(e.getStartTime().getTime());
-            eventDto.setFinishTime(e.getFinishTime().getTime());
-            return eventDto;
-        }).collect(Collectors.toList());
+        return events.stream().map(this::convertEvent).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public EventDto findEvent(Long eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
+        Event e = event.orElseThrow(() -> new EntityNotFoundException("Event with id #" + eventId + " not found"));
+        return convertEvent(e);
+    }
+
+    private EventDto convertEvent(Event e) {
+        EventDto eventDto = new EventDto();
+        eventDto.setEventId(e.getId());
+        eventDto.setStartTime(e.getStartTime().getTime());
+        eventDto.setFinishTime(e.getFinishTime().getTime());
+        eventDto.setStatus(EventDto.Status.valueOf(e.getStatus().name()));
+        return eventDto;
     }
 }

@@ -8,14 +8,14 @@ spring:
       routes:
       - id: accept
         uri: lb://accept-ticket-service:8080
-#        uri: http://accept:8080
         predicates:
-        - Host=localhost
-        - Path=/accept/**
+#        - Host=localhost
+        - Path=/v2/accept/**
+        filters:
+         - RewritePath=/v2/(?<segment>.*), /$\{segment}
 
       - id: payout
         uri: http://payout:8080
-#        uri: http://payout:8080
         predicates:
         - Path=/payout/**
 
@@ -25,11 +25,12 @@ spring:
           - Path=/scheduler/**
 
       - id: static
-#        uri: http://static:8080
         uri: lb://accept-ticket-static-service:8080
         predicates:
-        - Host=static
-        - Path=/accept/**
+#        - Host=static
+        - Path=/v1/accept/**
+        filters:
+        - RewritePath=/v1/(?<segment>.*), /$\{segment}
 
       - id: eureka
         uri: http://localhost:8761/

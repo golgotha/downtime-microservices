@@ -16,4 +16,11 @@ import java.io.Serializable;
 public class BookTicketRequestDto implements Serializable {
 
     private Long eventId;
+
+    @Override
+    public String toString() {
+        return "BookTicketRequestDto{" +
+                "eventId=" + eventId +
+                '}';
+    }
 }

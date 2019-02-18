@@ -16,4 +16,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query("select e from Event e where e.finishTime > current_time")
     List<Event> findEvents();
+
+    @Query("select e from Event e where e.finishTime <= current_time and e.status <> 'FINISHED'")
+    List<Event> findExpired();
 }
