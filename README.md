@@ -11,7 +11,7 @@ mvn clean install
 
 docker-compose up -d
 
-Application UI is run on localhost:3000
+Application UI starts on localhost:3000
 
 ### API Gateway service
 API Gateway service is located on http://localhost:9000 
