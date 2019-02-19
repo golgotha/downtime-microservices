@@ -1,6 +1,6 @@
 # microservices application example
 
-The experimental project which shows a simple microservice architecture with Spring Cloud. 
+The experimental project which shows a simple microservice architecture with Spring Cloud and Docker. 
 
 To run the application you necessary to install docker.
 
