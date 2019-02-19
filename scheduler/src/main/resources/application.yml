@@ -7,7 +7,7 @@ server:
 
 spring:
   application:
-    name: event-scheduler-service
+    name: event-scheduler-service # This is service id
 
   datasource:
     url: jdbc:mysql://events_db:3306/mediastream?useUnicode=true&amp;characterEncoding=UTF-8

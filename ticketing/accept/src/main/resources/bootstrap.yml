@@ -1,6 +1,6 @@
 spring:
   application:
-    name: accept-ticket-service
+    name: accept-ticket-service # This is service id
 
 eureka:
   client:
