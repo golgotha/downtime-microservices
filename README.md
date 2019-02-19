@@ -32,3 +32,8 @@ v1 - static service. It means when a user clicks on "Book ticket" button "ticket
 
 v2 - dynamic service. It means "ticketId" will be generated based on timestamp.  
  
+### Main components
+
+1. API Gateway - takes all the requests from clients and determines which service needed
+2. Service Discovery: Eureka server. http://localhost:8761 
+3. Feign Client is a declarative web service client to communicate between services
