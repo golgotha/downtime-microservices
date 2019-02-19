@@ -10,6 +10,8 @@ request to Ticket service in order to finalize tickets related to this event.
 ### Build application
 mvn clean install
 
+It will build all docker images that are required to run the application.
+
 ### Run in docker
 
 docker-compose up -d
