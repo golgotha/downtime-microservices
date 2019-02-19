@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 public class GatewayApplication {
 
+    // TODO: Move API gate way configuration here from yml-file.
     /*@Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()

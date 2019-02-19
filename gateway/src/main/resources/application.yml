@@ -37,21 +37,6 @@ spring:
         predicates:
         - Path=/eureka/**
 
-#        filters:
-#        - RewritePath=/accept/(?<path>.*), /$\{path}
-#      - id: department-service
-#        uri: lb://department-service
-#        predicates:
-#        - Path=/department/**
-#        filters:
-#        - RewritePath=/department/(?<path>.*), /$\{path}
-#      - id: organization-service
-#        uri: lb://organization-service
-#        predicates:
-#        - Path=/organization/**
-#        filters:
-#        - RewritePath=/organization/(?<path>.*), /$\{path}
-
 server:
   port: 9000
 
