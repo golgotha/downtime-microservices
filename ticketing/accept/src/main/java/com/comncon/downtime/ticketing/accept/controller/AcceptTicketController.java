@@ -16,6 +16,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author Valery Kantor
@@ -58,6 +59,12 @@ public class AcceptTicketController {
     @ResponseBody
     public void finalizeAllEventTickets(@PathVariable Long eventId) {
         bookTicketService.finalizeAllTickets(eventId);
+    }
+
+    @GetMapping(value = "/findTickets")
+    @ResponseBody
+    public List<BookTicketResponseDto> getTickets() {
+        return bookTicketService.findTickets();
     }
 
     @KafkaListener(topics = "tickets")

@@ -17,4 +17,6 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookTicketResponseDto implements Serializable {
     private Long ticketId;
+    private String status;
+    private Long eventId;
 }

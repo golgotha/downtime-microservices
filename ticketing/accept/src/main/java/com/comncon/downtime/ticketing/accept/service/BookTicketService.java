@@ -14,6 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Valery Kantor
@@ -49,8 +50,19 @@ public class BookTicketService {
     public void finalizeAllTickets(Long eventId) {
         logger.info("Finalizing tickets for event #" + eventId);
         final List<Ticket> tickets = ticketRepository.findByEventId(eventId);
-//        tickets.stream().peek(ticket -> ticket.setStatus(Ticket.Status.FINALIZED))
-//                .collect(Collectors.toList());
+        tickets.stream().peek(ticket -> ticket.setStatus(Ticket.Status.FINALIZED))
+                .collect(Collectors.toList())
+                .forEach(ticketRepository::save);
+    }
+
+    public List<BookTicketResponseDto> findTickets() {
+        return ticketRepository.findAll().stream().map(ticket -> {
+            BookTicketResponseDto item = new BookTicketResponseDto();
+            item.setTicketId(Long.valueOf(ticket.getId()));
+            item.setStatus(ticket.getStatus().name());
+            item.setEventId(ticket.getEventId());
+            return item;
+        }).collect(Collectors.toList());
     }
 
     protected static class Skip32Enc {

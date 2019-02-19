@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +42,7 @@ public class EventService {
         eventDto.setStartTime(e.getStartTime().getTime());
         eventDto.setFinishTime(e.getFinishTime().getTime());
         eventDto.setStatus(EventDto.Status.valueOf(e.getStatus().name()));
+        eventDto.setServerTime(new Date().getTime());
         return eventDto;
     }
 }

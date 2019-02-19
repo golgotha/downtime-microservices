@@ -20,6 +20,7 @@ public class EventDto implements Serializable {
     private Long startTime;
     private Long finishTime;
     private Status status;
+    private Long serverTime;
 
     public enum Status {
         ANNOUNCEMENT,

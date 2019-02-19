@@ -15,4 +15,5 @@ import java.util.Optional;
 public interface TicketRepository extends MongoRepository<Ticket, String> {
     Optional<Ticket> findById(String id);
     List<Ticket> findByEventId(Long eventId);
+
 }

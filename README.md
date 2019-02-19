@@ -4,6 +4,9 @@ The experimental project which shows a simple microservice architecture with Spr
 
 To run the application you necessary to install docker.
 
+The application emulates very simple event generation and finalization workflow. After an event will be finished API sends
+request to Ticket service in order to finalize tickets related to this event. 
+
 ### Build application
 mvn clean install
 
